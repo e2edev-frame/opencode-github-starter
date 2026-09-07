@@ -1,0 +1,3 @@
+# Auto-request review from the repo owner on every PR.
+# (Free-tier alternative: branch protection requires GitHub Pro on private repos.)
+* @e2edev-frame

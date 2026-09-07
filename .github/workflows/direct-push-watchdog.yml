@@ -1,0 +1,27 @@
+name: direct-push-watchdog
+# Free-tier substitute for branch protection (requires Pro on private repos):
+# detects commits pushed straight to main without a merged PR and opens an issue.
+on:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - run: |
+          REPO="${{ github.repository }}"
+          DIRECT=""
+          for sha in $(jq -r '.commits[].id' "$GITHUB_EVENT_PATH"); do
+            N=$(gh api "repos/$REPO/commits/$sha/pulls" --jq '[.[] | select(.state=="closed")] | length')
+            if [ "$N" = "0" ]; then DIRECT="$DIRECT $sha"; fi
+          done
+          if [ -n "$DIRECT" ]; then
+            gh issue create --repo "$REPO" \
+              --title "Direct push to main detected" \
+              --body "These commits reached \`main\` without a merged PR:$DIRECT Pushed by @${{ github.actor }}. Please use a pull request next time."
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
