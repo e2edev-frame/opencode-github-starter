@@ -1,5 +1,7 @@
 # GitHub + OpenCode setup — test-opencode-github
 
+> Start with the [README](../README.md) for the big picture; this file is the deep log.
+
 Owner: `e2edev-frame` · Visibility: **public** · Default branch: `main`
 
 ## What is installed
