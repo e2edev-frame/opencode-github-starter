@@ -17,6 +17,11 @@ Owner: `e2edev-frame` · Visibility: **public** · Default branch: `main`
 | Secret | `OPENCODE_API_KEY` (Actions secret) | Zen key, also stored locally in `~/.local/share/opencode/auth.json` |
 | GitHub App | `opencode-agent` | Installed on this repo only |
 
+The workflows pin the review action to an immutable commit. The comment-triggered
+workflow installs OpenCode `v1.18.29` from its fixed Linux x64 release artifact
+and verifies the published SHA-256 digest before execution; update both values
+together when upgrading OpenCode.
+
 ## Everyday use
 
 - Issue/PR comment: `/opencode fix this`, `/opencode explain this issue`, `/oc add error handling here`
