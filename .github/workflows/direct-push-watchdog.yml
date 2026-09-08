@@ -17,6 +17,17 @@ jobs:
           DIRECT=""
           for sha in $(jq -r '.commits[].id' "$GITHUB_EVENT_PATH"); do
             N=$(gh api "repos/$REPO/commits/$sha/pulls" --jq '[.[] | select(.state=="closed")] | length')
+            if [ "$N" = "0" ]; then
+              # Squash-merged commits get a fresh SHA that the API does not link
+              # to the PR, so fall back to the "(#NN)" suffix in the message and
+              # only flag when that PR is not merged.
+              MSG=$(gh api "repos/$REPO/commits/$sha" --jq -r '.commit.message')
+              PRNUM=$(printf '%s' "$MSG" | grep -oE '\(#[0-9]+\)' | tr -d '(#)' | head -n 1)
+              if [ -n "$PRNUM" ]; then
+                MERGED=$(gh api "repos/$REPO/pulls/$PRNUM" --jq 'if .state == "closed" and .merged_at != null then "yes" else "no" end' 2>/dev/null || echo "no")
+                if [ "$MERGED" = "yes" ]; then N=1; fi
+              fi
+            fi
             if [ "$N" = "0" ]; then DIRECT="$DIRECT $sha"; fi
           done
           if [ -n "$DIRECT" ]; then
