@@ -29,6 +29,7 @@ Owner: `e2edev-frame` · Visibility: **public** · Default branch: `main`
 | `User opencode-agent[bot] does not have write permissions` | bot's own reply re-triggered the workflow (self-loop via `/oc` substring) | guard `if:` with `github.event.comment.user.type != 'Bot'` |
 | Review posts `fatal: could not read Username` | `persist-credentials: false` leaves git without auth for the action's `git fetch` | keep persisted credentials + `fetch-depth: 0` in review workflow |
 | Review can't post comment (403) | review job needs write to comment | `pull-requests: write`, `issues: write` |
+| Agent replies "done" but no branch/PR appears | `opencode` job is read-only (`contents: read`), push denied | `contents: write` + `pull-requests: write`, trigger locked to `OWNER` (see `opencode.yml`) |
 | Can't approve own PR / can't merge | GitHub forbids self-approval; solo devs merge own PRs via `gh pr merge --admin` | approve bot PRs normally; `--admin` only for your own |
 | Branch protection 403 on private repo | requires GitHub Pro | this repo is public, so real protection is on; watchdog remains as backup |
 
