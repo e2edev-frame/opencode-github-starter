@@ -24,6 +24,25 @@ Test repo for the OpenCode GitHub agent. Small Python demo (`calc.py` + `test_ca
 - Upstream docs (read before changing agent behavior): `https://opencode.ai/docs/github/`,
   `https://opencode.ai/docs/permissions/`.
 
+## Team & roles (who does what — forever)
+
+| # | Who | Role |
+|---|---|---|
+| 1 | Owner (human) | Gives orders directly to whoever they want, approves, merges. |
+| 2 | Local opencode agent | Foreman: takes big tasks, splits them, reviews, opens PRs, deploys. |
+| 3 | Cloud agent (`opencode-agent[bot]`) | Takes `/opencode` slips on GitHub: implements, pushes, opens PRs. |
+| 4 | Copilot CLI (local) | Fast coder, driven by #2 via `copilot -p`. Needs no repo setup. |
+
+Direction rules:
+
+- **Talk direct.** Order each agent straight (#1→#2 here, #1→#4 in VS Code/CLI,
+  #1→#3 via `/opencode`). Agent-to-agent telephone (`copilot → opencode run`)
+  is technically possible but wastes credits and garbles the message — don't.
+- **File handoff when chaining.** If one agent must feed another, write the spec
+  to a file (`TASK.md`) so nothing gets lost in retelling.
+- **#2 orchestrates, #4 executes.** #2 splits work, #4 implements pieces,
+  #2 reviews and ships. Every Copilot change still goes branch → PR → checks.
+
 ## Cloud agent (GitHub Actions) rules
 
 The `/opencode` / `/oc` comment trigger runs `anomalyco/opencode/github` on `ubuntu-latest`
