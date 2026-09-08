@@ -1,4 +1,4 @@
-# GitHub + OpenCode setup — test-opencode-github
+# GitHub + OpenCode setup — opencode-github-starter
 
 > Start with the [README](../README.md) for the big picture; this file is the deep log.
 
@@ -20,7 +20,7 @@ Owner: `e2edev-frame` · Visibility: **public** · Default branch: `main`
 ## Everyday use
 
 - Issue/PR comment: `/opencode fix this`, `/opencode explain this issue`, `/oc add error handling here`
-- Local: `gh issue create`, `gh pr create`, `gh run list --repo e2edev-frame/test-opencode-github`
+- Local: `gh issue create`, `gh pr create`, `gh run list --repo e2edev-frame/opencode-github-starter`
 
 ## Troubleshooting (all hit for real during setup)
 

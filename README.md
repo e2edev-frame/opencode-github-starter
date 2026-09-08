@@ -1,4 +1,4 @@
-# test-opencode-github
+# opencode-github-starter
 
 A hardened starter for running the [opencode](https://opencode.ai/docs/github/) GitHub agent —
 from zero to an agent that writes code, pushes branches, and opens PRs by itself.
