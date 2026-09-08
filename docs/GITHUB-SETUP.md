@@ -27,6 +27,26 @@ together when upgrading OpenCode.
 - Issue/PR comment: `/opencode fix this`, `/opencode explain this issue`, `/oc add error handling here`
 - Local: `gh issue create`, `gh pr create`, `gh run list --repo e2edev-frame/opencode-github-starter`
 
+## Command vocabulary (Issue/PR-first)
+
+Every order goes on an Issue or PR comment so the history stays auditable.
+Two levels — say which one you mean:
+
+| Order | Effect | Cost |
+|---|---|---|
+| `/opencode explain <thing>` | Read-only reply in the thread. No code, no branch, no PR. | Cheap, ~30s |
+| `/opencode fix this` / `implement ...` | Full loop: branch → code → tests → PR. | Minutes |
+| `/oc <short instruction>` | Same as `/opencode`, short form. | Same as above |
+| `/oc ...` on PR code lines | Targeted change on those lines (Files tab comment). | Minutes |
+
+Rules for a good order (learned from real runs):
+
+1. One purpose per order. Big task → split into numbered issues first.
+2. State the acceptance bar (`pytest must pass`, `reply only`, `Closes #N`).
+3. To forbid side effects, say so explicitly — the agent obeys literal
+   `Do NOT` constraints (`Do NOT edit files. Do NOT commit. Do NOT push.
+   Do NOT open a PR.`), proven in #25.
+
 ## Troubleshooting (all hit for real during setup)
 
 | Symptom | Cause | Fix |
