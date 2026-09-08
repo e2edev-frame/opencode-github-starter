@@ -1,4 +1,4 @@
-# AGENTS.md — test-opencode-github
+# AGENTS.md — opencode-github-starter
 
 Test repo for the OpenCode GitHub agent. Small Python demo (`calc.py` + `test_calc.py`).
 
@@ -15,7 +15,7 @@ Test repo for the OpenCode GitHub agent. Small Python demo (`calc.py` + `test_ca
 ## Workflow commands
 
 - Sanity check demo: `python calc.py` (expect `5`), `python -m pytest` if tests exist.
-- GitHub: `gh pr create`, `gh pr view`, `gh issue create`, `gh run list --repo e2edev-frame/test-opencode-github`.
+- GitHub: `gh pr create`, `gh pr view`, `gh issue create`, `gh run list --repo e2edev-frame/opencode-github-starter`.
 
 ## Docs
 
@@ -44,7 +44,7 @@ only catches identical repeated calls, NOT one hanging call, so discipline is on
    That is the documented minimum for an agent expected to push branches and open PRs
    (see upstream "schedule" guidance). Do not widen (no `actions:write`, no `admin`).
 4. **Every CLI command must be fully non-interactive.** Always pass explicit
-   `--repo e2edev-frame/test-opencode-github --head <branch> --base main`
+   `--repo e2edev-frame/opencode-github-starter --head <branch> --base main`
    (`--title/--body` for `gh pr create`), and always close stdin with `< /dev/null`
    so a forgotten prompt fails fast instead of hanging. Prefer `gh ... --jq` output
    over parsing human text.
