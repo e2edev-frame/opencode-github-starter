@@ -59,6 +59,7 @@ Rules for a good order (learned from real runs):
 | Agent replies "done" but no branch/PR appears | `opencode` job is read-only (`contents: read`), push denied | `contents: write` + `pull-requests: write`, trigger locked to `OWNER` (see `opencode.yml`) |
 | Can't approve own PR / can't merge | GitHub forbids self-approval; solo devs merge own PRs via `gh pr merge --admin` | approve bot PRs normally; `--admin` only for your own |
 | Branch protection 403 on private repo | requires GitHub Pro | this repo is public, so real protection is on; watchdog remains as backup |
+| Watchdog flags squash-merge commits as direct pushes | squash creates a fresh SHA the API does not link to the PR | watchdog falls back to the `(#NN)` message suffix and skips merged PRs |
 
 ## Worth reading (short list)
 
